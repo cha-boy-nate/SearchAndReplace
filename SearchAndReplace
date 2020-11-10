@@ -1,0 +1,21 @@
+import csv, re, sys
+def SearchAndReplace(inputFileName, outputFileName, regularExpression, replacementText, column):
+	try:
+		with open(inputFileName, "r") as inputFile:
+			inputFile = csv.reader(inputFile, delimiter=",")
+			with open(outputFileName, "w+", newline="") as outputFile:
+				csvOutputFile = csv.writer(outputFile)
+				for row in inputFile:
+					row[column] = re.sub(regularExpression, replacementText, row[column])
+					csvOutputFile.writerow(row)
+		print("Search and Replace successful")
+	except:
+		print("Search and Replace unsuccessful")
+
+def main():
+	if(sys.argv[1] == "SearchAndReplace"):
+		eval(sys.argv[1])(inputFileName=sys.argv[2], outputFileName=sys.argv[3], regularExpression=sys.argv[4], replacementText=sys.argv[5], column=int(sys.argv[6]))
+	else:
+		print("Command not found.")
+
+main()
